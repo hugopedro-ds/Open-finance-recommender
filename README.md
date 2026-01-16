@@ -1,5 +1,9 @@
 # Quantum Finance — data-driven-recommendation-system (FIAP)
-**Python · Recommender Systems · Notebook · License**
+
+![Python](https://img.shields.io/badge/python-3.8%2B-blue)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-orange)
+![Notebook](https://img.shields.io/badge/notebook-Jupyter%2FColab-red)
+![License](https://img.shields.io/badge/license-academic-lightgrey)
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ypiJz4l5GtgyZQM-fty0Rh8cxRwpa_vJ?usp=sharing)
 
@@ -40,25 +44,21 @@ outputs/                 # Resultados gerados (tabelas recomendação, rankings)
 models/                  # (opcional) se guardar artefatos no futuro
 
 README.md                # Documentação do projeto
-``` 
+```
 
 ---
 
 ## 🧠 Técnicas e Abordagem
+- **Sistema de recomendação baseado em Filtragem Colaborativa por Usuário (User-Based CF):**
+ - Matriz usuário × item (intensidade) Representa quanto cada cliente “tem relação” com um produto (ex.: possui, usa, transaciona, tem volume etc.).
 
-- Sistema de recomendação baseado em Filtragem Colaborativa por Usuário (User-Based CF):
-- Matriz usuário × item (intensidade)
-- Representa quanto cada cliente “tem relação” com um produto (ex.: possui, usa, transaciona, tem volume etc.).
-- Medidas de similaridade
-- Cosine Similarity (0 a 1): compara padrão de consumo/produtos em vetores normalizados
-- Pearson Correlation (-1 a 1): captura similaridade de “tendência” (variações relativas), útil quando escalas diferem
-- Geração de recomendações (Top-N)
-- Identifica clientes mais similares ao cliente-alvo
-- Agrega sinais dos vizinhos para itens não consumidos
-- Retorna ranking + score e, quando possível, explicação (quem contribuiu)
-- **Filtragem Colaborativa Baseada em Usuários (User-Based CF)**
-- **Similaridade do Cosseno** (0 a 1)
-- **Correlação de Pearson** (-1 a 1)
+- **Medidas de similaridade**
+  - **Cosine Similarity (0 a 1):** compara padrão de consumo/produtos em vetores normalizados
+  - **Pearson Correlation (-1 a 1):** captura similaridade de “tendência” (variações relativas), útil quando escalas diferem
+ - **Geração de recomendações (Top-N)** 
+  - Identifica clientes mais similares ao cliente-alvo
+  - Agrega sinais dos vizinhos para itens não consumidos
+  - Retorna ranking + score e, quando possível, explicação (quem contribuiu)
 
 ---
 
@@ -74,96 +74,102 @@ README.md                # Documentação do projeto
 ---
 
 ## 🚀 Como Usar
-1) Instalação (requirements.txt)
-- Pré-requisitos
+
+### 1) Instalação (requirements.txt)
+**Pré-requisitos**
 - Python 3.8+
 - Git (opcional)
-- Instalar dependências
-- pip install -r requirements.txt
 
-2) Reprodutibilidade
+**Instalar dependências**
+```bash
+pip install -r requirements.txt
+```
+
+**2) Reprodutibilidade**
 - O notebook principal concentra o fluxo completo (dados → matriz → similaridade → recomendações → outputs).
 - Recomenda-se rodar em ambiente limpo (Colab ou venv local).
 
-3) Rodar o projeto
+**3) Rodar o projeto**
 - Opção A — Google Colab (recomendado)
-- Abrir o notebook: Open in Colab
-- Executar as células em ordem (Runtime → Run all)
+  - Abrir o notebook: Open in Colab
+  - Executar as células em ordem (Runtime → Run all)
 - Opção B — Local
-- Abrir notebooks/recommendations_systems.ipynb no Jupyter/VS Code
-- Garantir dependências: pip install -r requirements.txt
+  - Abrir notebooks/recommendations_systems.ipynb no Jupyter/VS Code
+  - Garantir dependências: pip install -r requirements.txt
 
-4) Outputs gerados
+**4) Outputs gerados**
 - Imagens para leitura rápida no GitHub (pasta img/)
 - Tabelas de recomendações e rankings (pasta outputs/)
-
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ypiJz4l5GtgyZQM-fty0Rh8cxRwpa_vJ?usp=sharing)
 
 ---
 
 ## 📊 Dataset
-- Fonte: Dataset reduzido fornecido na disciplina (Open Finance – handson).
-- Formato típico: .txt contendo um dicionário/estrutura com clientes e seus produtos/sinais.
-- Obs.: este projeto utiliza apenas dados consentidos e não trabalha com identificadores diretos sensíveis.
+Fonte: Dataset reduzido fornecido na disciplina (**Open Finance – handson**).  
+Formato típico: `.txt` contendo um dicionário/estrutura com clientes e seus produtos/sinais.
+
+**Obs.:** este projeto utiliza apenas dados consentidos e não trabalha com identificadores diretos sensíveis.
 
 ---
 
 ## 🔎 O que foi feito no notebook
-- Importação e leitura da base
+**1) Importação e leitura da base**
 - Leitura do arquivo do dataset (estrutura em dict)
 - Padronização de chaves e produtos
-- Construção do catálogo de produtos
+
+**2) Construção do catálogo de produtos**
 - Lista única de produtos/serviços no ecossistema do dataset
-- Matriz usuário × item (intensidade)
+
+**3) Matriz usuário × item (intensidade)**
 - Transformação dos dados brutos em matriz (clientes nas linhas, produtos nas colunas)
 - Definição de intensidade (ex.: binário 0/1 ou peso por volume/frequência — conforme dataset)
-- Cálculo de similaridade entre usuários
+
+**4) Cálculo de similaridade entre usuários**
 - Similaridade do Cosseno (matriz NxN)
 - Correlação de Pearson (matriz NxN)
-- Geração de recomendações (Top-N)
-- Seleção dos K vizinhos mais próximos
+
+**5) Geração de recomendações (Top-N)**
+- Seleção dos **K vizinhos mais próximos**
 - Score por produto com agregação ponderada pela similaridade
 - Remoção de itens já consumidos
-- Explicabilidade simples
+
+**6) Explicabilidade simples**
 - Para cada item recomendado: “clientes similares X/Y/Z contribuíram com peso W”
-- Exemplos práticos
+
+**7) Exemplos práticos**
 - Recomendações para um conjunto de clientes-alvo
 - Tabela final pronta para colar em apresentação
 
 ---
 
 ## 🏆 Resultados (Resumo Executivo)
-- O protótipo entrega um pipeline completo de recomendação:
-- Entrada: clientes + produtos (Open Finance)
-- Processamento: matriz usuário×item → similaridade → ranking Top-N
-- Saída: lista de recomendações por cliente, com score e explicação simples
+O protótipo entrega um pipeline completo de recomendação:
 
----
+- **Entrada:** clientes + produtos (Open Finance)
+- **Processamento:** matriz usuário×item → similaridade → ranking Top-N
+- **Saída:** lista de recomendações por cliente, com score e explicação simples
 
-## 📌 Exemplo de Saída
-- Cliente (amostra): Client_007
-- Recomendações (Cosine): Cartão Premium, Seguro Vida, Investimento Renda Fixa
-- Score: 0.82 | 0.77 | 0.69
-
-- **“Por quê”:** baseado em clientes similares Client_021 (+0.31), Client_112 (+0.28), Client_054 (+0.23)
+📌 **Exemplo de Saída**  
+Cliente (amostra): `Client_007`  
+- Recomendações (Cosine): `Cartão Premium`, `Seguro Vida`, `Investimento Renda Fixa`  
+- Score: `0.82 | 0.77 | 0.69`  
+- “Por quê”: baseado em clientes similares `Client_021 (+0.31)`, `Client_112 (+0.28)`, `Client_054 (+0.23)`
 
 ---
 
 ## ✅ Entregáveis
-
-✅ Entregável 1 — Contexto e Objetivo
+✅ **Entregável 1 — Contexto e Objetivo**
 - Problema: recomendação personalizada de produtos/serviços financeiros
 - Valor: elevar relevância, apoiar cross-sell/upsell e melhorar experiência do cliente
 
-✅ Entregável 2 — Protótipo Operacional
+✅ **Entregável 2 — Protótipo Operacional**
 - Notebook executável com fluxo completo
 - Outputs salvos para leitura rápida no GitHub
 
-✅ Entregável 3 — Modelo e Métricas (base)
+✅ **Entregável 3 — Modelo e Métricas (base)**
 - Similaridade calculada (Cosseno e Pearson)
 - Validações iniciais (sanity checks, exemplos, consistência)
 
-✅ Entregável 4 — Explicabilidade
+✅ **Entregável 4 — Explicabilidade**
 - Recomendações com indicação de quais vizinhos contribuíram para cada sugestão
 
 ---
